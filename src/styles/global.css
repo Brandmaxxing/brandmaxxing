@@ -5,7 +5,7 @@
 
 :root {
   /* Colour */
-  --bg: #0b0b0e;
+  --bg: #0d0d0d;
   --surface: #131318;
   --surface-2: #1a1a21;
   --border: rgba(242, 239, 233, 0.1);
@@ -15,7 +15,7 @@
   --accent: #c8a96a;
   --accent-strong: #ddc189;
   --accent-soft: rgba(200, 169, 106, 0.12);
-  --on-accent: #0b0b0e;
+  --on-accent: #0d0d0d;
 
   /* Type */
   --font-display: 'Fraunces Variable', Georgia, 'Times New Roman', serif;
