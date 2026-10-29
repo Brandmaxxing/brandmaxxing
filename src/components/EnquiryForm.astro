@@ -1,0 +1,209 @@
+---
+// Enquiry form.
+// - When site.enquiryFormUrl is set (Google Form), it embeds that form.
+// - Until then, it shows our own form, which opens the visitor's email app
+//   with their answers pre-filled, so enquiries still reach us.
+import { site } from '../data/site';
+
+const goals = [
+  'More enquiries and leads',
+  'Better brand awareness',
+  'A consistent social media presence',
+  'Launching something new',
+  'Not sure yet',
+];
+---
+
+{
+  site.enquiryFormUrl ? (
+    <div class="enquiry enquiry--embed">
+      <iframe src={site.enquiryFormUrl} title="Brandmaxxing enquiry form" loading="lazy">
+        Loading…
+      </iframe>
+    </div>
+  ) : (
+    <form class="enquiry" data-enquiry data-email={site.contact.email}>
+      <p class="enquiry__note">
+        <span class="placeholder-tag">Online form coming soon</span>
+        For now, sending this opens your email app with your answers filled in.
+      </p>
+
+      <div class="enquiry__row">
+        <label>
+          <span>Your name</span>
+          <input name="name" type="text" autocomplete="name" required />
+        </label>
+        <label>
+          <span>Business name</span>
+          <input name="business" type="text" autocomplete="organization" required />
+        </label>
+      </div>
+
+      <div class="enquiry__row">
+        <label>
+          <span>Email</span>
+          <input name="email" type="email" autocomplete="email" required />
+        </label>
+        <label>
+          <span>
+            Phone <em>(optional)</em>
+          </span>
+          <input name="phone" type="tel" autocomplete="tel" />
+        </label>
+      </div>
+
+      <label>
+        <span>What does your business do?</span>
+        <input name="what" type="text" placeholder="e.g. Family-run bakery in Durban North" required />
+      </label>
+
+      <label>
+        <span>What would you most like marketing to help with?</span>
+        <select name="goal" required>
+          <option value="" selected disabled>
+            Choose one
+          </option>
+          {goals.map((g) => (
+            <option>{g}</option>
+          ))}
+        </select>
+      </label>
+
+      <label>
+        <span>Tell us a bit more</span>
+        <textarea
+          name="message"
+          rows="5"
+          placeholder="Who are your customers? What have you tried so far? What would success look like in a year?"
+        />
+      </label>
+
+      <p class="enquiry__privacy muted">
+        We only use your details to reply to your enquiry. See our <a href="/privacy/">privacy notice</a>.
+      </p>
+
+      <button type="submit" class="enquiry__submit">
+        Send enquiry
+      </button>
+    </form>
+  )
+}
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-enquiry]');
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const get = (k: string) => String(data.get(k) ?? '').trim();
+
+    const body = [
+      `Name: ${get('name')}`,
+      `Business: ${get('business')}`,
+      `Email: ${get('email')}`,
+      `Phone: ${get('phone') || '-'}`,
+      `What the business does: ${get('what')}`,
+      `Main goal: ${get('goal')}`,
+      '',
+      get('message'),
+    ].join('\n');
+
+    const subject = `Website enquiry: ${get('business')}`;
+    window.location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  });
+</script>
+
+<style>
+  .enquiry {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .enquiry__note {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  .enquiry__row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    gap: 1.25rem;
+  }
+
+  label {
+    display: grid;
+    gap: 0.45rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  label em {
+    font-style: normal;
+    font-weight: 400;
+    color: var(--muted);
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    background: var(--bg);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    transition: border-color 0.2s var(--ease);
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: #77736c;
+  }
+
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  .enquiry__privacy {
+    font-size: 0.85rem;
+  }
+
+  .enquiry__privacy a {
+    color: var(--accent);
+  }
+
+  .enquiry__submit {
+    justify-self: start;
+    padding: 0.95rem 1.8rem;
+    border: none;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--on-accent);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.25s var(--ease);
+  }
+
+  .enquiry__submit:hover {
+    background: var(--accent-strong);
+  }
+
+  .enquiry--embed iframe {
+    width: 100%;
+    min-height: 1100px;
+    border: 0;
+    border-radius: var(--radius-sm);
+    background: var(--text);
+  }
+</style>

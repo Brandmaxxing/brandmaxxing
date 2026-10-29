@@ -1,0 +1,61 @@
+---
+// Consultation booking card.
+// - When site.bookingUrl is set (Google Calendar appointment page), the button opens it.
+// - Until then, the button starts an email to request a time.
+import Button from './Button.astro';
+import { site } from '../data/site';
+
+const mailto = `mailto:${site.contact.email}?subject=${encodeURIComponent('Free consultation request')}&body=${encodeURIComponent(
+  'Hi Brandmaxxing,\n\nI’d like to book a free consultation.\n\nBusiness name:\nBest days/times for a call:\nPhone number:\n',
+)}`;
+const href = site.bookingUrl || mailto;
+---
+
+<div class="booking card" id="book">
+  <p class="eyebrow">Free consultation</p>
+  <h2>Book a time to talk</h2>
+  <p class="muted">
+    A relaxed 30-minute conversation about your business, your customers and your goals. You’ll leave with a few practical
+    ideas, whether or not we end up working together.
+  </p>
+  <ul class="check-list">
+    <li>No cost and no obligation</li>
+    <li>Online or in person</li>
+    <li>Focused on your business, not a sales pitch</li>
+  </ul>
+  <Button href={href} size="lg">{site.bookingUrl ? 'Choose a time' : 'Request a time'}</Button>
+  {
+    !site.bookingUrl && (
+      <p class="booking__note">
+        <span class="placeholder-tag">Online booking coming soon</span>
+        For now this opens an email to us and we’ll reply with available times.
+      </p>
+    )
+  }
+</div>
+
+<style>
+  .booking {
+    display: grid;
+    align-content: start;
+    justify-items: start;
+    gap: 1.1rem;
+    scroll-margin-top: 6rem;
+    border-color: rgba(200, 169, 106, 0.45);
+    background:
+      radial-gradient(ellipse 90% 60% at 100% 0%, rgba(200, 169, 106, 0.14), transparent 70%),
+      var(--surface);
+  }
+
+  h2 {
+    font-size: var(--step-2);
+  }
+
+  .booking__note {
+    display: grid;
+    gap: 0.5rem;
+    justify-items: start;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+</style>

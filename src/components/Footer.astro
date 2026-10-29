@@ -1,0 +1,128 @@
+---
+import Logo from './Logo.astro';
+import { site, nav } from '../data/site';
+
+const year = new Date().getFullYear();
+const socials = Object.entries(site.social).filter(([, url]) => url);
+const capitalise = (s: string) => s[0].toUpperCase() + s.slice(1);
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__top">
+      <div class="site-footer__brand">
+        <Logo size="sm" />
+        <p class="site-footer__promise">{site.promise}</p>
+        <p class="muted">{site.strapline}</p>
+      </div>
+
+      <nav aria-label="Footer">
+        <p class="site-footer__heading">Explore</p>
+        <ul>
+          {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+          <li><a href="/contact/">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div>
+        <p class="site-footer__heading">Get in touch</p>
+        <ul>
+          <li><a href={`mailto:${site.contact.email}`}>{site.contact.email}</a></li>
+          {
+            site.contact.phone && (
+              <li>
+                <a href={`tel:${site.contact.phone.replace(/\s/g, '')}`}>{site.contact.phone}</a>
+              </li>
+            )
+          }
+          <li class="muted">{site.contact.location}</li>
+          {
+            socials.map(([name, url]) => (
+              <li>
+                <a href={url} rel="noopener" target="_blank">
+                  {capitalise(name)}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div class="site-footer__bottom">
+      <p>&copy; {year} {site.name}. All rights reserved.</p>
+      <a href="/privacy/">Privacy notice</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--border);
+    padding-block: clamp(3rem, 2rem + 4vw, 5rem) 2rem;
+    font-size: 0.93rem;
+  }
+
+  .site-footer__top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1.2fr;
+    gap: 2.5rem;
+  }
+
+  .site-footer__brand {
+    display: grid;
+    gap: 0.9rem;
+    align-content: start;
+    max-width: 24rem;
+  }
+
+  .site-footer__promise {
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    line-height: 1.3;
+  }
+
+  .site-footer__heading {
+    margin-bottom: 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  ul {
+    display: grid;
+    gap: 0.55rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  a {
+    color: var(--muted);
+    text-decoration: none;
+    overflow-wrap: anywhere;
+  }
+
+  a:hover {
+    color: var(--text);
+  }
+
+  .site-footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 3.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 760px) {
+    .site-footer__top {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

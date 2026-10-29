@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { services, specialistServices } from '../data/services';
+
+const core = services.filter((s) => s.core);
+const supporting = services.filter((s) => !s.core);
+---
+
+<BaseLayout
+  title="Services"
+  description="Brand strategy, brand awareness campaigns and social media management for South African businesses. Every service starts with understanding your business."
+>
+  <PageHero
+    eyebrow="Services"
+    title="Marketing that starts with <em class='accent'>your business</em>."
+    intro="We don’t sell a number of posts. We help you communicate your value to the people who matter, starting with a clear strategy and following through with consistent, purposeful content."
+  />
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Core services"
+        title="Where we put our energy"
+        intro="These three services are the foundation of every client relationship."
+      />
+      <div class="grid grid--3">
+        {core.map((s) => <ServiceCard service={s} detailed />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--surface">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Supporting services"
+        title="Turning attention into <em class='accent'>results</em>"
+        intro="Included across our packages to make sure the work keeps getting better."
+      />
+      <div class="grid grid--2">
+        {supporting.map((s) => <ServiceCard service={s} detailed />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container specialist reveal">
+      <div>
+        <p class="eyebrow">Quoted separately</p>
+        <h2>Specialist services</h2>
+      </div>
+      <div class="stack">
+        <p class="muted">
+          Some work depends heavily on the project, so we quote it on its own rather than building it into a monthly
+          package:
+        </p>
+        <ul class="check-list">
+          {specialistServices.map((s) => <li>{s}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    title="Not sure what you need? <em class='accent'>That’s normal.</em>"
+    text="Tell us about your business and we’ll recommend where to start. The first consultation is free."
+  />
+</BaseLayout>
+
+<style>
+  .specialist {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    gap: clamp(1.5rem, 1rem + 4vw, 5rem);
+    align-items: start;
+  }
+
+  .specialist h2 {
+    font-size: var(--step-2);
+    margin-top: 0.75rem;
+  }
+</style>

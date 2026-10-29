@@ -1,0 +1,47 @@
+---
+// Top-of-page intro used on every inner page.
+interface Props {
+  eyebrow: string;
+  title: string;
+  intro?: string;
+}
+const { eyebrow, title, intro } = Astro.props;
+---
+
+<section class="page-hero">
+  <div class="page-hero__glow" aria-hidden="true"></div>
+  <div class="container page-hero__inner">
+    <p class="eyebrow reveal">{eyebrow}</p>
+    <h1 class="reveal" set:html={title} />
+    {intro && <p class="lead reveal">{intro}</p>}
+    <slot />
+  </div>
+</section>
+
+<style>
+  .page-hero {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(3.5rem, 2.5rem + 6vw, 7.5rem) clamp(2.5rem, 2rem + 3vw, 4.5rem);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .page-hero__glow {
+    position: absolute;
+    inset: -60% -15% auto auto;
+    width: min(60vw, 760px);
+    aspect-ratio: 1;
+    background: radial-gradient(circle, rgba(200, 169, 106, 0.14), transparent 62%);
+    pointer-events: none;
+  }
+
+  .page-hero__inner {
+    position: relative;
+    display: grid;
+    gap: 1.4rem;
+  }
+
+  h1 {
+    max-width: 18ch;
+  }
+</style>

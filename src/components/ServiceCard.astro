@@ -1,0 +1,66 @@
+---
+import type { Service } from '../data/services';
+
+interface Props {
+  service: Service;
+  detailed?: boolean;
+}
+const { service, detailed = false } = Astro.props;
+---
+
+<article class:list={['service card reveal', { 'service--detailed': detailed }]} id={detailed ? service.id : undefined}>
+  <span class="service__number">{service.number}</span>
+  <h3>{service.title}</h3>
+  <p class="muted">{service.summary}</p>
+  {
+    detailed && (
+      <>
+        <ul class="check-list">
+          {service.points.map((p) => (
+            <li>{p}</li>
+          ))}
+        </ul>
+        <p class="service__benefit">
+          <span class="eyebrow">What you get</span>
+          {service.benefit}
+        </p>
+      </>
+    )
+  }
+</article>
+
+<style>
+  .service {
+    display: grid;
+    align-content: start;
+    gap: 1rem;
+    transition:
+      border-color 0.3s var(--ease),
+      transform 0.3s var(--ease);
+  }
+
+  .service:hover {
+    border-color: rgba(200, 169, 106, 0.4);
+  }
+
+  .service__number {
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    font-style: italic;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .service--detailed {
+    gap: 1.25rem;
+    scroll-margin-top: 6rem;
+  }
+
+  .service__benefit {
+    display: grid;
+    gap: 0.5rem;
+    margin-top: auto;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border);
+  }
+</style>

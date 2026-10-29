@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import RoadmapTimeline from '../components/RoadmapTimeline.astro';
+import CtaBand from '../components/CtaBand.astro';
+---
+
+<BaseLayout
+  title="How We Work"
+  description="Discover, Strategise, Create, Activate, Measure, Grow. The six-phase Brandmaxxing roadmap for building a more visible, more recognisable brand."
+>
+  <PageHero
+    eyebrow="How we work"
+    title="Six phases. <em class='accent'>One clear direction.</em>"
+    intro="Good marketing isn’t a pile of posts. It’s a plan, carried out consistently and improved as you learn. This is the process we follow with every client."
+  />
+
+  <section class="section">
+    <div class="container roadmap-wrap">
+      <RoadmapTimeline />
+    </div>
+  </section>
+
+  <section class="section section--surface">
+    <div class="container honesty">
+      <div class="reveal">
+        <p class="eyebrow">Our commitment</p>
+        <h2>We won’t promise you numbers. <em class="accent">We’ll show you them.</em></h2>
+      </div>
+      <div class="stack reveal">
+        <p class="lead">
+          No honest agency can guarantee a specific amount of sales or growth. Too much depends on your market, your offer
+          and timing.
+        </p>
+        <p class="muted">
+          What we can commit to is a structured process, quality work and transparent reporting. You’ll see what’s working,
+          what isn’t and what we’re changing as a result. That’s how good marketing compounds over time.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand title="Phase one starts with <em class='accent'>a conversation</em>." />
+</BaseLayout>
+
+<style>
+  .roadmap-wrap {
+    max-width: 52rem;
+  }
+
+  .honesty {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
+    gap: clamp(1.5rem, 1rem + 4vw, 5rem);
+    align-items: start;
+  }
+</style>

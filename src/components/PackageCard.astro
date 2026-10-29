@@ -1,0 +1,108 @@
+---
+import Button from './Button.astro';
+import { pricePlaceholder, type Package } from '../data/packages';
+import { consultationHref } from '../data/site';
+
+interface Props {
+  pkg: Package;
+  showIncludes?: boolean;
+}
+const { pkg, showIncludes = true } = Astro.props;
+---
+
+<article class:list={['package card reveal', { 'package--featured': pkg.featured }]}>
+  {pkg.featured && <span class="package__badge">Most popular</span>}
+  <h3>{pkg.name}</h3>
+  <p class="package__audience muted">{pkg.audience}</p>
+
+  <p class="package__price">
+    <span class="package__from">From</span>
+    <span class="package__amount">{pkg.price || pricePlaceholder}</span>
+    <span class="package__per">/ month</span>
+    {!pkg.price && <span class="placeholder-tag">Pricing TBC</span>}
+  </p>
+
+  <p>{pkg.summary}</p>
+
+  {
+    showIncludes && (
+      <ul class="check-list">
+        {pkg.includes.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    )
+  }
+
+  <Button href={consultationHref} variant={pkg.featured ? 'primary' : 'ghost'} class="package__cta">
+    Discuss {pkg.name}
+  </Button>
+</article>
+
+<style>
+  .package {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+
+  .package--featured {
+    border-color: rgba(200, 169, 106, 0.55);
+    background:
+      radial-gradient(ellipse 90% 50% at 50% 0%, rgba(200, 169, 106, 0.12), transparent 70%),
+      var(--surface);
+  }
+
+  .package__badge {
+    position: absolute;
+    top: -0.75rem;
+    left: clamp(1.4rem, 1.1rem + 1vw, 2rem);
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--on-accent);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  h3 {
+    font-size: var(--step-2);
+  }
+
+  .package__audience {
+    font-size: 0.95rem;
+  }
+
+  .package__price {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.4rem;
+    padding-block: 1rem;
+    border-block: 1px solid var(--border);
+  }
+
+  .package__from,
+  .package__per {
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .package__amount {
+    font-family: var(--font-display);
+    font-size: var(--step-3);
+    line-height: 1;
+  }
+
+  .package .check-list {
+    font-size: 0.95rem;
+  }
+
+  :global(.package__cta) {
+    margin-top: auto;
+    align-self: flex-start;
+  }
+</style>

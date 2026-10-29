@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import BenefitsGrid from '../components/BenefitsGrid.astro';
+import CtaBand from '../components/CtaBand.astro';
+---
+
+<BaseLayout
+  title="About"
+  description="Brandmaxxing helps businesses move from being overlooked to being recognised, understood and chosen. Learn what we believe and how we work."
+>
+  <PageHero
+    eyebrow="About Brandmaxxing"
+    title="Effective marketing begins with <em class='accent'>the business behind the brand</em>."
+  />
+
+  <section class="section">
+    <div class="container split">
+      <div class="reveal">
+        <p class="eyebrow">Our purpose</p>
+        <h2>Marketing with a reason behind it.</h2>
+      </div>
+      <div class="stack reveal">
+        <p class="lead">
+          We help businesses build awareness, strengthen their place in the market and attract more customers through
+          strategic, creative and consistent digital marketing.
+        </p>
+        <p class="muted">
+          We don’t believe in posting just to fill a social media calendar. Every piece of marketing should have a purpose,
+          and that purpose should come from your business goals.
+        </p>
+        <p class="muted">
+          So we take the time to understand your goals, your customers and what makes you different. Then we build brand
+          awareness and social media strategies designed to help you stand out, connect with the right audience and create
+          real opportunities for growth.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--surface">
+    <div class="container promise reveal">
+      <p class="eyebrow">Our promise</p>
+      <blockquote>
+        <p>
+          We help businesses move from being overlooked to being <em class="accent">recognised, understood and considered</em>
+          by the customers they want to reach.
+        </p>
+      </blockquote>
+      <p class="muted">We make brands more visible, more memorable and better positioned to compete.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="What you gain"
+        title="Why businesses work with us"
+        intro="We can’t guarantee specific sales figures. We can guarantee a structured process, quality execution and transparent measurement. Here’s what that gives you."
+      />
+      <BenefitsGrid />
+    </div>
+  </section>
+
+  <CtaBand title="Your business is unique. <em class='accent'>Your marketing should be too.</em>" />
+</BaseLayout>
+
+<style>
+  .split {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
+    gap: clamp(1.5rem, 1rem + 4vw, 5rem);
+    align-items: start;
+  }
+
+  .promise {
+    display: grid;
+    justify-items: center;
+    gap: 1.5rem;
+    max-width: 56rem;
+    text-align: center;
+  }
+
+  blockquote p {
+    font-family: var(--font-display);
+    font-size: var(--step-3);
+    line-height: 1.25;
+    text-wrap: balance;
+  }
+</style>

@@ -1,0 +1,55 @@
+---
+import Button from './Button.astro';
+import { consultationHref } from '../data/site';
+
+interface Props {
+  title?: string;
+  text?: string;
+}
+const {
+  title = 'Let’s start with <em class="accent">your business</em>.',
+  text = 'Book a free, no-obligation consultation. We’ll learn about your goals, your customers and what makes you different, then show you where the opportunities are.',
+} = Astro.props;
+---
+
+<section class="section cta-band">
+  <div class="container">
+    <div class="cta-band__panel reveal">
+      <h2 set:html={title} />
+      <p class="lead">{text}</p>
+      <div class="cta-band__actions">
+        <Button href={consultationHref} size="lg">Book a free consultation</Button>
+        <Button href="/contact/" variant="ghost" size="lg">Send an enquiry</Button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-band__panel {
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    justify-items: center;
+    gap: 1.25rem;
+    text-align: center;
+    padding: clamp(2.5rem, 1.5rem + 5vw, 5.5rem) clamp(1.25rem, 1rem + 3vw, 4rem);
+    border: 1px solid var(--border);
+    border-radius: calc(var(--radius) * 1.5);
+    background:
+      radial-gradient(ellipse 60% 80% at 50% 0%, rgba(200, 169, 106, 0.16), transparent 70%),
+      var(--surface);
+  }
+
+  .cta-band__panel .lead {
+    max-width: 46ch;
+  }
+
+  .cta-band__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.9rem;
+    margin-top: 0.75rem;
+  }
+</style>

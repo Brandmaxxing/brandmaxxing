@@ -1,0 +1,178 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import RoadmapTimeline from '../components/RoadmapTimeline.astro';
+import BenefitsGrid from '../components/BenefitsGrid.astro';
+import PackageCard from '../components/PackageCard.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { consultationHref } from '../data/site';
+import { services } from '../data/services';
+import { packages } from '../data/packages';
+
+const coreServices = services.filter((s) => s.core);
+---
+
+<BaseLayout>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero__glow" aria-hidden="true"></div>
+    <div class="container hero__inner">
+      <p class="eyebrow reveal">Strategic marketing for South African businesses</p>
+      <h1 class="reveal">Maximise your brand. <em class="accent">Multiply</em> your opportunities.</h1>
+      <p class="lead reveal">
+        Most marketing starts with posts. Ours starts with your business. We learn what you sell, who you sell to and what
+        you need to achieve, then build brand awareness and social media around it.
+      </p>
+      <div class="hero__actions reveal">
+        <Button href={consultationHref} size="lg">Book a free consultation</Button>
+        <Button href="/how-we-work/" variant="ghost" size="lg">See how we work</Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Differentiator -->
+  <section class="section section--surface">
+    <div class="container split">
+      <div class="reveal">
+        <p class="eyebrow">Our difference</p>
+        <h2>Business first.<br /><em class="accent">Marketing second.</em></h2>
+      </div>
+      <div class="stack reveal">
+        <p class="lead">
+          Plenty of people can make social media posts. Far fewer take the time to understand your products, your customers,
+          your competitors and your commercial goals before they start.
+        </p>
+        <p class="muted">
+          That’s where we begin. Every campaign, post and recommendation is tied back to what your business needs to
+          achieve, so your marketing helps the right people understand why you’re worth choosing.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core services -->
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="What we do"
+        title="Three things, <em class='accent'>done properly</em>."
+        intro="We focus on the work that builds a brand people recognise. Strategy first, then the content and campaigns that put it in front of the right audience."
+      />
+      <div class="grid grid--3">
+        {coreServices.map((s) => <ServiceCard service={s} />)}
+      </div>
+      <p class="more-link reveal">
+        <a href="/services/">Explore all our services <span aria-hidden="true">→</span></a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Roadmap teaser -->
+  <section class="section section--surface">
+    <div class="container">
+      <SectionHeading
+        eyebrow="How we work"
+        title="A clear process, <em class='accent'>from first call to growth</em>."
+        intro="Six phases that keep everything purposeful and measurable. You always know what we’re doing and why."
+      />
+      <RoadmapTimeline compact />
+      <p class="more-link reveal">
+        <a href="/how-we-work/">See the full roadmap <span aria-hidden="true">→</span></a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Benefits -->
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Why Brandmaxxing"
+        title="What changes when your marketing <em class='accent'>has a plan</em>."
+      />
+      <BenefitsGrid />
+    </div>
+  </section>
+
+  <!-- Packages teaser -->
+  <section class="section section--surface">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Packages"
+        title="Monthly packages that <em class='accent'>grow with you</em>."
+        intro="Three straightforward options. We’ll recommend the right one after we understand your business."
+      />
+      <div class="grid grid--3 packages">
+        {packages.map((p) => <PackageCard pkg={p} showIncludes={false} />)}
+      </div>
+      <p class="more-link reveal">
+        <a href="/packages/">Compare what’s included <span aria-hidden="true">→</span></a>
+      </p>
+    </div>
+  </section>
+
+  <CtaBand />
+</BaseLayout>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(4.5rem, 3rem + 8vw, 10rem) clamp(4rem, 3rem + 6vw, 8rem);
+  }
+
+  .hero__glow {
+    position: absolute;
+    inset: -30% -10% auto auto;
+    width: min(70vw, 900px);
+    aspect-ratio: 1;
+    background: radial-gradient(circle, rgba(200, 169, 106, 0.18), transparent 62%);
+    pointer-events: none;
+  }
+
+  .hero__inner {
+    position: relative;
+    display: grid;
+    gap: 1.6rem;
+  }
+
+  .hero h1 {
+    max-width: 15ch;
+    font-size: clamp(2.6rem, 1.6rem + 4.6vw, 5.6rem);
+    line-height: 1.04;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    margin-top: 0.75rem;
+  }
+
+  .split {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
+    gap: clamp(1.5rem, 1rem + 4vw, 5rem);
+    align-items: start;
+  }
+
+  .more-link {
+    margin-top: 2.5rem;
+  }
+
+  .more-link a {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .more-link a:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .packages {
+    padding-top: 0.75rem;
+  }
+</style>
