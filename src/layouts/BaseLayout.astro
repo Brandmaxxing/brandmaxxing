@@ -16,7 +16,8 @@ interface Props {
 const { title, description = site.description, noindex = false } = Astro.props;
 const pageTitle = title ? `${title} | ${site.name}` : `${site.name} | ${site.tagline}`;
 const canonical = new URL(Astro.url.pathname, site.url).href;
-const ogImage = new URL('/og-image.png', site.url).href;
+const ogImage = new URL('/og-image.jpg', site.url).href;
+const logo = new URL('/apple-touch-icon.png', site.url).href;
 
 const schema = {
   '@context': 'https://schema.org',
@@ -30,6 +31,7 @@ const schema = {
   areaServed: { '@type': 'Country', name: site.country },
   serviceType: ['Brand strategy', 'Brand awareness', 'Social media marketing', 'Social media management'],
   image: ogImage,
+  logo,
 };
 ---
 
@@ -45,7 +47,8 @@ const schema = {
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex" />}
 
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta name="theme-color" content="#0d0d0d" />
 

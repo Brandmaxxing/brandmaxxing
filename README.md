@@ -26,7 +26,7 @@ Almost all wording and settings live in `src/data/`, so you rarely need to touch
 | Customer benefits | `src/data/benefits.ts` |
 | Packages page FAQ | `src/data/faq.ts` |
 | Colours, fonts, spacing | `src/styles/global.css` (the `:root` block) |
-| Logo | `src/components/Logo.astro` and `public/favicon.svg` |
+| Logo | `src/components/Logo.astro` (mark: `public/logo-mark.webp`); icons `public/favicon.png` and `public/apple-touch-icon.png`; original artwork in `brand/` |
 
 Search the project for `TODO` to find every placeholder.
 
@@ -50,5 +50,5 @@ One-time setup:
 2. **Google Calendar booking.** Create an appointment schedule in Google Calendar and put its booking page URL in `bookingUrl` in `src/data/site.ts`. The "Request a time" button becomes "Choose a time" and opens the booking page.
 3. **Package pricing.** Fill in `price` for each package in `src/data/packages.ts` (for example `'R4 500'`). The "Pricing TBC" tags disappear once a price is set.
 4. **Contact details.** Confirm the email address, and add a phone/WhatsApp number and social links in `src/data/site.ts`.
-5. **Social sharing image.** Replace `public/og-image.png` if you create a designed one (1200 × 630 px).
-6. **Later:** a designed logo, client testimonials (Days 61–90), analytics, and an update to the privacy notice when Google Forms, booking or analytics go live.
+5. **Social sharing image.** `public/og-image.jpg` (1200 × 630 px) shows the full logo. Replace it if you want a different design.
+6. **Later:** a vector (SVG) version of the logo for print and signage, client testimonials (Days 61–90), analytics, and an update to the privacy notice when Google Forms, booking or analytics go live.

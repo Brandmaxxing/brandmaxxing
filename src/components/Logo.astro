@@ -1,6 +1,6 @@
 ---
-// Wordmark: a "maximise" double-chevron mark plus BRAND·MAXX·ING text.
-// Swap this file out when a designed logo exists.
+// Brand logo: the gold BXM mark (cut from brand/brandmaxxing-logo-original.jpg)
+// plus a live-text BRANDMAXXING wordmark styled to echo the logo's gold serif.
 interface Props {
   size?: 'sm' | 'md';
 }
@@ -8,46 +8,42 @@ const { size = 'md' } = Astro.props;
 ---
 
 <span class:list={['logo', `logo--${size}`]}>
-  <svg class="logo__mark" viewBox="0 0 32 32" aria-hidden="true">
-    <rect x="0.75" y="0.75" width="30.5" height="30.5" rx="7" fill="none" stroke="currentColor" stroke-opacity=".35" stroke-width="1.5"></rect>
-    <path d="M9.5 17.5 16 11l6.5 6.5M9.5 23.5 16 17l6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path>
-  </svg>
-  <span class="logo__text">Brand<span class="logo__maxx">maxx</span>ing</span>
+  <img class="logo__mark" src="/logo-mark.webp" alt="" width="144" height="144" decoding="async" />
+  <span class="logo__text">Brandmaxxing</span>
 </span>
 
 <style>
   .logo {
     display: inline-flex;
     align-items: center;
-    gap: 0.65rem;
-    color: var(--accent);
+    gap: 0.55rem;
   }
 
   .logo__mark {
-    width: 1.9rem;
-    height: 1.9rem;
+    width: 2.75rem;
+    height: 2.75rem;
     flex: none;
   }
 
   .logo__text {
-    font-family: var(--font-body);
+    font-family: var(--font-display);
     font-weight: 600;
-    font-size: 0.95rem;
-    letter-spacing: 0.22em;
+    font-size: 1.05rem;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--text);
-  }
-
-  .logo__maxx {
     color: var(--accent);
+    background: linear-gradient(180deg, #f1d999 0%, var(--accent) 55%, #9c7a3e 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   .logo--sm .logo__mark {
-    width: 1.6rem;
-    height: 1.6rem;
+    width: 2.25rem;
+    height: 2.25rem;
   }
 
   .logo--sm .logo__text {
-    font-size: 0.85rem;
+    font-size: 0.95rem;
   }
 </style>
